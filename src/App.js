@@ -1,8 +1,11 @@
+import React from "react";
+import Sidebar from "./components/Sidebar";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-     <h1>React and Redux</h1>
+      <h1>React and Redux</h1>
+      <Sidebar />
     </div>
   );
 }
