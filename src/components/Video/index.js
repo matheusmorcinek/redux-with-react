@@ -1,12 +1,17 @@
 import React from 'react';
 
-const Video = () => {
+import { connect } from 'react-redux';
+
+const Video = ({ activeModule, activeLesson }) => {
     return (
         <div>
-            <strong>Módulo X</strong>
-            <span>Aula X</span>
+            <strong>Módulo {activeModule.title}</strong>
+            <span>Aula {activeLesson.title}</span>
         </div>
     );
 }
 
-export default Video;
+export default connect(state => ({
+    activeModule: state.activeModule,
+    activeLesson: state.activeLesson
+}))(Video);
