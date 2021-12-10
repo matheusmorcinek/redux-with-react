@@ -29,10 +29,6 @@ const Video = ({ activeModule, activeLesson }) => {
 }
 
 export default connect(state => ({
-    billingState
-    bullingLoading,
-    billingError
-
     activeModule: state.course.activeModule,
     activeLesson: state.course.activeLesson
 }))(Video);
