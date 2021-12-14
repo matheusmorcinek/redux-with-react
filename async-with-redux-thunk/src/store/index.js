@@ -1,8 +1,8 @@
-//A função createStore do redux cria o nosso estado global, o store global da nossa aplicação, onde será armazenado todas informações do app.
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 import rootReducer from './reducers';
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;
