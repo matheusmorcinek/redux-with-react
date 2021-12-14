@@ -8,3 +8,11 @@ export const toggleLesson = (module, lesson) => {
         lesson
     };
 };
+
+export const toggleLessonWithDelay = (module, lesson) => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(toggleLesson(module, lesson));
+        }, 2000);
+    }
+};

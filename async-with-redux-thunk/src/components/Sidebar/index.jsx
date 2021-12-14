@@ -9,7 +9,7 @@ import { modulesMock } from 'store/reducers/course';
 
 //todo componente que utiliza o connect, tem também nas props a função dispatch
 //!IMPORTANT - essa dispatch serve para disparar actions para o redux, e essas actions serão ouvidas por todos reducers da aplicação.
-const Sidebar = ({ modules, toggleLesson }) => {
+const Sidebar = ({ modules, toggleLesson, toggleLessonWithDelay }) => {
 
     return (
         <aside>
@@ -24,6 +24,7 @@ const Sidebar = ({ modules, toggleLesson }) => {
                                     <li key={lesson.id}>
                                         {lesson.title}
                                         <button onClick={() => toggleLesson(module, lesson)} >Selecionar</button>
+                                        <button onClick={() => toggleLessonWithDelay(module, lesson)} >Selecionar com delay</button>
                                     </li>
                                 ))
                             }
@@ -41,7 +42,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    toggleLesson: (module, lesson) => dispatch(CourseActions.toggleLesson(module, lesson))
+    toggleLesson: (module, lesson) => dispatch(CourseActions.toggleLesson(module, lesson)),
+    toggleLessonWithDelay: (module, lesson) => dispatch(CourseActions.toggleLessonWithDelay(module, lesson))
 });
 
 //https://react-redux.js.org/api/connect
