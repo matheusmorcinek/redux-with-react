@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 
 const modulesMock = [
@@ -54,8 +55,20 @@ const modulesMock = [
     }
 ];
 
+app.use(cors())
+
 app.get('/courses', function (req, res) {
-    res.send(modulesMock);
+
+    setTimeout(() => {
+        console.log('backend /courses')
+        res.json(modulesMock);
+    }, 3000);
+
+    // setTimeout(() => {
+
+    //     res.status(500).send({ error: 'Something failed!' });
+    // }, 3000);
+
 })
 
-app.listen(3003)
+app.listen(3001)

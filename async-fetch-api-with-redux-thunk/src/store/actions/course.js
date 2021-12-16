@@ -1,18 +1,35 @@
-export const toggleLesson = (module, lesson) => {
-    return {
-        //o type indica a ação que está sendo realizada, e essa ação precisa ser única dentro do redux
-        type: 'TOGGLE_LESSON',
-        //logo depois podemos enviar qualquer outra informação, neste exemplo vamos eviar module e lesson
-        //https://redux.js.org/tutorials/fundamentals/part-3-state-actions-reducers
-        module,
-        lesson
-    };
+export const coursesLoading = () => ({ type: 'FETCH_COURSES_LOADING' });
+
+export const coursesFailed = () => ({ type: 'FETCH_COURSES_FAILED' });
+
+export const coursesLoaded = (courses) => ({
+    type: 'FETCH_COURSES_LOADED',
+    payload: courses
+});
+
+var requestOptions = {
+    method: 'GET'
 };
 
-export const toggleLessonWithDelay = (module, lesson) => {
-    return dispatch => {
-        setTimeout(() => {
-            dispatch(toggleLesson(module, lesson));
-        }, 2000);
-    }
+// Thunk function
+export const getCourses = () => async (dispatch) => {
+    dispatch(coursesLoading());
+    await fetch('http://localhost:3001/courses', requestOptions)
+        .then(response => {
+
+            if (response.ok) {
+                response.json().then(parsedBody => {
+
+                    dispatch(coursesLoaded(parsedBody));
+                });
+            }
+
+            if (response.status === 500) {
+                throw new Error('Something went wrong.');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            dispatch(coursesFailed());
+        });
 };
