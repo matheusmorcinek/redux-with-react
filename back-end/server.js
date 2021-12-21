@@ -59,10 +59,12 @@ app.use(cors())
 
 app.get('/courses', function (req, res) {
 
+    const timeout = Math.random() * (3000 - 1000) + 1000;
+
     setTimeout(() => {
         console.log('backend /courses')
         res.json(modulesMock);
-    }, 3000);
+    }, timeout);
 
     // setTimeout(() => {
 
@@ -70,5 +72,30 @@ app.get('/courses', function (req, res) {
     // }, 3000);
 
 })
+
+
+app.get('/remove/lesson/:moduleId/:lessonId', function (req, res) {
+
+    console.log('/remove/lesson');
+    console.log('moduleId', req.params.moduleId);
+    console.log('lessonId', req.params.lessonId);
+
+    const timeout = Math.random() * (1000 - 500) + 500;
+
+    try {
+
+        setTimeout(() => {
+            const moduleIndex = parseInt(req.params.moduleId) - 1;
+            const lessonId = parseInt(req.params.lessonId);
+            modulesMock[moduleIndex].lessons = modulesMock[moduleIndex].lessons.filter(lesson => lesson.id !== lessonId);
+            res.send(200);
+        }, timeout);
+    } catch (err) {
+
+        console.error(err);
+        res.send(500);
+    }
+});
+
 
 app.listen(3001)

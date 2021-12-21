@@ -18,6 +18,7 @@ const course = (state = INITIAL_STATE, action) => {
         case 'FETCH_COURSES_LOADED': {
 
             return {
+                // ...state, //todo ???
                 status: 'succeeded',
                 courses: action.payload
             };
